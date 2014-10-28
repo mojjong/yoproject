@@ -422,7 +422,7 @@
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="bs-example">
-    <form class="form-horizontal" method="POST" action="singleUpload" enctype = "multipart/form-data">
+    <form name = "writeForm" method="POST" class="form-horizontal" >
         <div class="form-group">
             <label class="control-label col-xs-1">Name</label>
             <div class="col-xs-10">
@@ -457,7 +457,7 @@
   </div>
 <div class="form-group">
 <div class="col-xs-offset-1 col-xs-10">
-   <button type="submit" class="btn btn-primary btn-lg">
+   <button id="completeBtn" class="btn btn-primary btn-lg">
       Submit
    </button>
    <button type="reset" class="btn btn-default btn-lg">Reset
@@ -500,7 +500,17 @@
                 });
             });
         </script>
+    
 
     </body>
-
+    <script type="text/javascript" src="/resources/js/paging.js"></script>
+    <script type="text/javascript" src="/resources/js/event.js"></script>
+	    <script>
+		EventUtil.addHandler(document, "DOMContentLoaded", function(event){
+			EventUtil.addHandler(completeBtn, "click", function(event){
+				//event = EventUtil.getEvent(event);
+				writingData();
+			}); 
+	})
+	</script>
 </html>

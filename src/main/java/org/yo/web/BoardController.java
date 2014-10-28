@@ -3,6 +3,7 @@ package org.yo.web;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -82,6 +83,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String writePost(BbsVO vo, Model model){
+		System.out.println("너 실행되니?");
 		service.create(vo.setIsfile("F"));
 		model.addAttribute("vo", service.read(vo.getBbsNo()));
 		return "bbs/view";
@@ -140,27 +142,34 @@ public class BoardController {
 
 	//하나만 업로드할때.
 	@RequestMapping(value = "/singleUpload", method = RequestMethod.POST)
-	 public String singleUp(@RequestParam MultipartFile upfile, Model model)throws Exception{
-
+	 public String singleUp(@RequestParam MultipartFile upfile, Model model, BbsVO vo)throws Exception{
+		
+	  System.out.println("업로드 실행");
 	  boolean b = upfile.isEmpty();//false이면 업도드된 파일이 있다.
 	  HashMap map = new HashMap();
+	  
+	  String UUName = UUID.randomUUID().toString();
 
 	  // 업로드 한다.
 	  if(upfile!=null && !b){
 	   
 	   String fileName = upfile.getOriginalFilename();
+	   
+	   UUName += "_" + fileName;
 	   long fileSize = upfile.getSize();
-	   System.out.println("파일명 : "+fileName+", 크기 : "+fileSize);
+	   System.out.println("파일명 : "+UUName+", 크기 : "+fileSize);
 	   //파일 이동(임시저장소 upfile의 정보를 영구적 저장소 uploadDirectory로 보내준다)
-	   upfile.transferTo(new File("C:\\zzz\\upload",fileName));
+	   upfile.transferTo(new File("C:\\zzz\\upload",UUName));
 	   map.put("fileName", fileName);
+	   service.create(vo.setIsfile("T"));
+		model.addAttribute("vo", service.read(vo.getBbsNo()));
 	   
 	  }
 	  
 	  model.addAttribute("single_res", map);
 //	  System.out.println("코멘트 : "+comment);
 //	  map.put("comment", comment);
-	  return "/bbs/single_res";
+	  return "/bbs/view";
 
 	 }
 	

@@ -11,7 +11,7 @@
 업로드된 파일<br>
 Comment : ${single_res.comment }<br>
 파일 : ${single_res.fileName }<br>
-
+<hr>
 <c:forEach items="${requestScope.list }" var="file">
  ${file.originalFilename }<br>
 </c:forEach>

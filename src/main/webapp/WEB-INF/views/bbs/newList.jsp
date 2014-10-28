@@ -573,14 +573,5 @@ div.table ul.head li {
 		});
 	})
 	</script>
-<!-- 	<script>
-    $(document).ready(function() {
-          $('.target').click(function(){
-              $('.target').toggle(500); // #moreMenu2를 알아서 토.글!
-                });
-            });
-
-
-	</script> -->
 
 </html>
