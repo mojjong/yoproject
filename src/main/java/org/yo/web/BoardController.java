@@ -1,5 +1,7 @@
 package org.yo.web;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.yo.service.BoardService;
 import org.yo.vo.BbsVO;
 import org.yo.vo.ReplyVO;
@@ -133,5 +137,32 @@ public class BoardController {
 		service.replyDelete(replyNo);
 		return "redirect:/bbs/board";
 	}
+
+	//하나만 업로드할때.
+	@RequestMapping(value = "/singleUpload", method = RequestMethod.POST)
+	 public String singleUp(@RequestParam MultipartFile upfile, Model model)throws Exception{
+
+	  boolean b = upfile.isEmpty();//false이면 업도드된 파일이 있다.
+	  HashMap map = new HashMap();
+
+	  // 업로드 한다.
+	  if(upfile!=null && !b){
+	   
+	   String fileName = upfile.getOriginalFilename();
+	   long fileSize = upfile.getSize();
+	   System.out.println("파일명 : "+fileName+", 크기 : "+fileSize);
+	   //파일 이동(임시저장소 upfile의 정보를 영구적 저장소 uploadDirectory로 보내준다)
+	   upfile.transferTo(new File("C:\\zzz\\upload",fileName));
+	   map.put("fileName", fileName);
+	   
+	  }
+	  
+	  model.addAttribute("single_res", map);
+//	  System.out.println("코멘트 : "+comment);
+//	  map.put("comment", comment);
+	  return "/bbs/single_res";
+
+	 }
+	
 	
 }

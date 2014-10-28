@@ -422,7 +422,7 @@
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="bs-example">
-    <form class="form-horizontal" method="POST" action="write">
+    <form class="form-horizontal" method="POST" action="singleUpload" enctype = "multipart/form-data">
         <div class="form-group">
             <label class="control-label col-xs-1">Name</label>
             <div class="col-xs-10">
@@ -452,7 +452,7 @@
   	<div class="form-group">
     <label class="control-label col-xs-1" for="exampleInputFile">File</label>
     <div class="col-xs-10">
-    <input type="file" name="file">
+    <input type="file" name="upfile">
     </div>
   </div>
 <div class="form-group">
