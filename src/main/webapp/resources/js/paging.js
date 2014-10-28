@@ -82,6 +82,22 @@ function writeData(){
 	document.form1.action = "write";
 	document.form1.page.value = 1;
 	document.form1.submit();
+	
+}
+
+
+
+function writingData(){
+	var upfile = document.writeForm.upfile.value;
+	console.log(upfile);
+	if(upfile !== null && upfile !== ""){
+		document.writeForm.action = "singleUpload";
+		document.writeForm.enctype = "multipart/form-data";
+		document.writeForm.submit();
+	}else{
+		document.writeForm.action = "write";
+		document.writeForm.submit();
+	}
 }
 
 function modifyData(){
